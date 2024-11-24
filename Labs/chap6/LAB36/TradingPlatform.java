@@ -10,8 +10,8 @@ public class TradingPlatform {
   // Intialized with two sentinel nodes on either side of deque
   public TradingPlatform()
   {
-    Node sentryHead = new Node(0,0);
-    Node sentryTail = new Node(0,0);
+    Node sentryHead = new Node(-1,0);
+    Node sentryTail = new Node(-1,0);
 
     this.head = sentryHead;
     this.tail = sentryTail;
@@ -24,6 +24,14 @@ public class TradingPlatform {
   // Buying shares is our form of enqueueing
   public void buy(int shares, int price)
   {
+    // For our purposes, I won't allow negative share buys (shorting)
+    if(shares <= 0)
+    {
+      System.out.println("You cannot buy 0 shares.");
+    }
+    // I was going to prevent purchase at negative price as well
+    // but technically there was a period in 2020 when gas futures
+    // went negative. So I guess it's possble
     Node newNode = new Node(shares, price);
     if(this.head.next == this.tail)
     {
