@@ -24,5 +24,56 @@ public class Main {
     System.out.println("Print ArrayList Tree:");
     tree.print();
     System.out.println();
+
+    LinkedListTree<String> tree2 = new LinkedListTree<>();
+    Node<String> rootNode = new Node<>("Root");
+    Node<String> lNode = new Node<>("Left");
+    Node<String> rNode = new Node<>("Right");
+    Node<String> lLNode = new Node<>("LeftLeft");
+    Node<String> rRNode = new Node<>("rightRight");
+    
+    tree2.addRoot(rootNode);
+    tree2.addLeft(rootNode, lNode);
+    tree2.addRight(rootNode, rNode);
+    tree2.addLeft(lNode, lLNode);
+    tree2.addRight(rNode, rRNode);
+
+    System.out.println("Tests For Linked List Tree: ");
+
+    String value = tree2.getRoot().getElement();
+    System.out.println("Root: " + value);
+
+    value = rootNode.getLeft().getElement();
+    System.out.println("Left Child of Root: " + value);
+
+    value = rootNode.getRight().getElement();
+    System.out.println("Right Child of Root: " + value);
+    System.out.println("Root # of Children: " + rootNode.numChildren());
+
+    value = lNode.getParent().getElement();
+    System.out.println("Parent of Left Child: " + value);
+
+    value = rNode.getParent().getElement();
+    System.out.println("Parent of Right Child: " + value);
+
+    value = rNode.getRight().getElement();
+    System.out.println("Right Child of Right Node: " + value);
+    System.out.println("Size: " + tree2.size());
+
+    value = tree2.remove(rNode);
+    System.out.println("Removed Right Node: " + value);
+    System.out.println("Right Num Children: " + rNode.numChildren());
+
+    value = rootNode.getRight().getElement();
+    System.out.println("Updated Right Child of Root: " + value);
+
+    value = rRNode.getParent().getElement();
+    System.out.println("Updated RightRight Node Parent: " + value);
+
+    value = rNode.getParent().getElement();
+    System.out.println("Updated Right Node Parent: " + value);
+    System.out.println("Updated Size: " + tree2.size());
+    System.out.println();
+
   }
 }

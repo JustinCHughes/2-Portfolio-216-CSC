@@ -16,26 +16,33 @@ public class LinkedListTree<T> {
     this.size++;
   }
 
-  public void addLeft(Node<T> position, T data)
+  public Node<T> getRoot()
+  {
+    return this.root;
+  }
+
+  public void addLeft(Node<T> position, Node<T> newNode)
   {
     if(position.getLeft() != null)
     {
       System.out.println("This node already has a left child!");
       return;
     }
-    Node<T> newNode = new Node<>(data);
     position.setLeft(newNode);
+    newNode.setParent(position);
+    this.size++;
   }
 
-  public void addRight(Node<T> position, T data)
+  public void addRight(Node<T> position, Node<T> newNode)
   {
     if(position.getRight() != null)
     {
-      System.out.println("This node already has a left child!");
+      System.out.println("This node already has a right child!");
       return;
     }
-    Node<T> newNode = new Node<>(data);
     position.setRight(newNode);
+    newNode.setParent(position);
+    this.size++;
   }
 
   public void set(Node<T> position, T data)
@@ -43,74 +50,44 @@ public class LinkedListTree<T> {
     position.setElement(data);
   }
 
-  public T remove(Node<T> position)
+  public T remove(Node<T> node)
   {
-    Node<T> moveNode = null;
-    int move = 0;
-    T element = position.getElement();
-    if(position.getLeft() != null && position.getRight() != null)
+    Node<T> moveNode;
+    // As per the code in 8.3.1, we do not remove nodes with 2 children
+    if(node.getLeft() != null && node.getRight() != null)
     {
-      // Chooses the moveNode from the side that has a higher height
-      if(position.getLeft().getHeight() > position.getRight().getHeight())
+      System.out.println("Node has two children! Do not remove");
+      return null;
+    }
+    moveNode = (node.getLeft() != null ? node.getLeft() : node.getRight());
+    if(node.getParent() != null)
+    {
+      if(node.getParent().getLeft().equals(node))
       {
-        moveNode = position.getLeft();
-        move = 1;
+        node.getParent().setLeft(moveNode);
       }
       else
       {
-        moveNode = position.getRight();
-        move = 2;
-      }
-    }
-    else if(position.getLeft() != null)
-    {
-      moveNode = position.getLeft();
-      move = 1;
-    }
-    else if(position.getRight() != null)
-    {
-      moveNode = position.getRight();
-      move = 2;
-    }
-    if(position.getParent() != null)
-    {
-      if(position.getParent().getLeft().equals(position))
-      {
-        position.getParent().setLeft(moveNode);
-      }
-      else
-      {
-        position.getParent().setRight(moveNode);
+        node.getParent().setRight(moveNode);
       }
     }
     if (moveNode != null)
     {
-      moveNode.setParent(position.getParent());
+      moveNode.setParent(node.getParent());
     }
-    if (moveNode != null
-        && position.getLeft() != null
-        && position.getRight() != null)
-    {
-      if (move == 1)
-      {
-        Node<T> rightChild = position.getRight();
-        Node<T> rightMost = findRightMost(moveNode);
-        rightMost.setRight(rightChild);
-        rightChild.setParent(rightMost);
-      } else if (move == 2)
-      {
-        Node<T> leftChild = position.getLeft();
-        Node<T> leftMost = findLeftMost(moveNode);
-        leftMost.setLeft(leftChild);
-        leftChild.setParent(leftMost);
-      }
-    }
+    this.size--;
+    T element = node.getElement();
 
-    position.setElement(null);
-    position.setLeft(null);
-    position.setRight(null);
-    position.setParent(null);
+    node.setElement(null);
+    node.setLeft(null);
+    node.setRight(null);
+    node.setParent(node);
 
     return element;
+  }
+
+  public int size()
+  {
+    return this.size;
   }
 }
