@@ -183,4 +183,9 @@ public class ArrayListTree<T> {
       data.add(null);
     }
   }
+
+  public void print()
+  {
+    System.out.println(data);
+  }
 }

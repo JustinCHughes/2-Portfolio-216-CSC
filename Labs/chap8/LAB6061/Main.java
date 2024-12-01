@@ -6,6 +6,8 @@ public class Main {
     ArrayListTree<String> tree = new ArrayListTree<>("Root");
     tree.addLeft(0, "Left");
     tree.addRight(0, "Right");
+    tree.addRight(2, "RightRight");
+    tree.addRight(6,"RightRightRight");
 
     System.out.println("Tests For ArrayList Tree: ");
     System.out.println("Root: " + tree.root());
@@ -18,6 +20,9 @@ public class Main {
     System.out.println("Parent of Right Child: " + tree.parent(2));
     // Should print invalid position then return and print null
     System.out.println("Element 5 (Does Not Exist): " + tree.getElement(5));
-    System.out.println("Size: " + tree.size() + "\n");
+    System.out.println("Size: " + tree.size());
+    System.out.println("Print ArrayList Tree:");
+    tree.print();
+    System.out.println();
   }
 }
