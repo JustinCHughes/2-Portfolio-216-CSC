@@ -1,4 +1,4 @@
-package Labs.chap8.LAB6061;
+package Labs.chap8.LAB61;
 
 public class LinkedListTree<T> {
   private Node<T> root;

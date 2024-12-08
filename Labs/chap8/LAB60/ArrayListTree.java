@@ -1,4 +1,4 @@
-package Labs.chap8.LAB6061;
+package Labs.chap8.LAB60;
 
 import java.util.ArrayList;
 
@@ -113,7 +113,7 @@ public class ArrayListTree<T> {
   {
     if(position == 0)
     {
-      System.out.println("This is position 0. Root nood has no parent");
+      System.out.println("This is position 0. Root node has no parent");
       return null;
     }
     else if(checkPosition(position))

@@ -24,14 +24,113 @@
 
 package Labs.chap6.LAB36;
 
+import java.util.Scanner;
+
 public class LAB36 {
   public static void main(String[] args)
   {
-    TradingPlatform trade = new TradingPlatform();
-    trade.buy(100,20);
-    trade.buy(20,24);
-    trade.buy(200,36);
-    trade.sell(150,30);
-    System.out.println("PNL: " + trade.pnl());
+    Scanner in = new Scanner(System.in);
+    TradingPlatform platform = new TradingPlatform();
+    boolean exit = false;
+
+    while (!exit)
+    {
+      System.out.println("\n--- Stock Trading Platform ---");
+      System.out.println("1. Buy Shares");
+      System.out.println("2. Sell Shares");
+      System.out.println("3. View Current Stock Owned");
+      System.out.println("4. View Current PNL");
+      System.out.println("5. Exit");
+      System.out.print("Choose an option: ");
+
+      int choice = in.nextInt();
+      int buyShares, buyPrice, sellShares, sellPrice;
+
+      switch (choice)
+      {
+        case 1:
+          // Buy Shares
+          do {
+            System.out.print("Enter the number of shares to buy: ");
+            buyShares = in.nextInt();
+            if(buyShares <= 0)
+            {
+              System.out.println("You can't buy <= 0 shares");
+            }
+            else
+            {
+              break;
+            }
+          } while(true);
+          do {
+            System.out.print("Enter the price per share: ");
+            buyPrice = in.nextInt();
+            if(buyPrice <= 0)
+            {
+              System.out.println("You can't buy shares at price <= 0");
+            }
+            else
+            {
+              break;
+            }
+          } while(true);
+          platform.buy(buyShares, buyPrice);
+          break;
+
+        case 2:
+          // Sell Shares
+          do { 
+            System.out.print("Enter the number of shares to sell: ");
+            sellShares = in.nextInt();
+            if(sellShares <= 0)
+            {
+              System.out.println("You can't sell <= 0 shares");
+            }
+            else
+            {
+              break;
+            }
+          } while (true);
+
+          do { 
+            System.out.print("Enter the selling price per share: ");
+            sellPrice = in.nextInt();
+            if(sellPrice <= 0)
+            {
+              System.out.println("You can't sell shares at price <= 0");
+            }
+            else
+            {
+              break;
+            }
+          } while (true);
+
+          platform.sell(sellShares, sellPrice);
+          break;
+
+        case 3:
+          // View Current Stock Owned
+          platform.print();
+          System.out.println("\nTotal shares owned: " + platform.sharesOwned());
+          break;
+
+        case 4:
+          // View Current PNL
+          System.out.println("\nCurrent PNL: $" + platform.pnl());
+          break;
+
+        case 5:
+          // Exit
+          System.out.println("Exiting the platform. Goodbye!");
+          exit = true;
+          break;
+
+        default:
+          System.out.println("Invalid choice. Please try again.");
+          break;
+      }
+    }
+
+    in.close();
   }
 }

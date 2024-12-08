@@ -1,4 +1,4 @@
-package Labs.chap8.LAB6061;
+package Labs.chap8.LAB61;
 
 public class Node<T> {
   private Node<T> right;
@@ -52,21 +52,6 @@ public class Node<T> {
   public void setParent(Node<T> node)
   {
     this.parent = node;
-  }
-
-  public int getHeight()
-  {
-    int heightL = 0;
-    int heightR = 0;
-    if(this.left != null)
-    {
-      heightL = 1 + this.left.getHeight();
-    }
-    if(this.right != null)
-    {
-      heightR = 1 + this.right.getHeight();
-    }
-    return Math.max(heightL, heightR);
   }
 
   public int numChildren()

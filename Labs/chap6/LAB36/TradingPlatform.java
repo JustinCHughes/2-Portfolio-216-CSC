@@ -24,14 +24,6 @@ public class TradingPlatform {
   // Buying shares is our form of enqueueing
   public void buy(int shares, int price)
   {
-    // For our purposes, I won't allow negative share buys (shorting)
-    if(shares <= 0)
-    {
-      System.out.println("You cannot buy 0 shares.");
-    }
-    // I was going to prevent purchase at negative price as well
-    // but technically there was a period in 2020 when gas futures
-    // went negative. So I guess it's possble
     Node newNode = new Node(shares, price);
     if(this.head.next == this.tail)
     {
@@ -62,16 +54,11 @@ public class TradingPlatform {
       System.out.println("You have no shares to sell");
       return;
     }
-    // Returns and tells user can't sell negative shares
-    if(shares < 0)
-    {
-      System.out.println("You cannot sell negative shares");
-      return;
-    }
     // User does not have enough shares to sell
     if(this.totalShares < shares)
     {
       System.out.println("You do not have that many shares to sell");
+      System.out.println("No stocks were sold.");
       return;
     }
     // Runs until loop breaks out
@@ -144,9 +131,11 @@ public class TradingPlatform {
   public void print()
   {
     Node current = this.tail.prev;
+    System.out.println();
     for(int i = 0; i < this.size; i++)
     {
-      System.out.println("Bought " + current.getShares() + " at $" + current.price);
+      System.out.println("Bought " + current.getShares() + " share(s) at $"
+         + current.price);
       current = current.prev;
     }
   }
