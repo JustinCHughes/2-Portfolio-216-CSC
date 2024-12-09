@@ -6,6 +6,13 @@
 // (b) Redraw the binary tree of Figure 8.6.3 using preorderDraw.
 
 // Used my ArrayListTree from Lab 60
+// Question part a)
+// The x coordinate increments as we find nodes in the tree
+// The y coordinate always moves downward and to a larger x coordinate
+// No two nodes share the same x coordinate and edges only connect
+// going from parent to child, there's no way for edges to overlap or cross
+// Thus, we can say that the drawing of tree T produced by preorderDraw
+// has no pairs of crossing edges
 
 package Labs.chap8.LAB49;
 
@@ -17,17 +24,37 @@ public class LAB49 {
 
   public static void main(String[] args)
   {
+    // Creating tree that was referenced in the problem
+    // Reference tree is Figure 8.6.3
+    // Conventional drawing of tree for comparison
+    //              A
+    //         /         \
+    //        B              C
+    //    /       \         / \
+    //   D         E       J   K
+    //  / \               / \
+    // F   G             L   M
+    //    / \
+    //   H   I
     ArrayListTree<String> tree = new ArrayListTree<>("A"); // Root
-    tree.addLeft(0, "B");
-    tree.addRight(0, "C");
-    tree.addLeft(1, "D");
-    tree.addRight(1, "E");
-    tree.addRight(2, "F");
+    tree.addLeft(0, "B"); // Left
+    tree.addRight(0, "C"); // Right
+    tree.addLeft(1, "D"); // Left Left
+    tree.addRight(1, "E"); // Left Right
+    tree.addLeft(3, "F"); // Left Left Left
+    tree.addRight(3, "G"); // Left Left Right
+    tree.addLeft(8, "H"); // Left Left Right Left
+    tree.addRight(8, "I"); // Left Left Right Right
+    tree.addLeft(2, "J"); // Right Left
+    tree.addRight(2, "K"); // Right Right
+    tree.addLeft(5, "L"); // Right Left Left
+    tree.addRight(5, "M"); // Right Left Right
 
     coordinates = new ArrayList<>();
     x = 0;
     preorder(tree, 0, 0);
 
+    System.out.println("Preorder draw of tree from 8.6.3");
     // Draw the tree
     drawTree();
   }
